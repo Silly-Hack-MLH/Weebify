@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:login_app/pages/chatscreen.dart';
 import 'package:login_app/widget/first.dart';
 import 'package:login_app/widget/textLogin.dart';
 import 'package:login_app/widget/verticalText.dart';
 
-import 'home.dart';
+// import 'home.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -162,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MyHomePage()),
+                                    builder: (context) => ChatScreen()),
                               );
                             }
                           }

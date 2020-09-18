@@ -31,6 +31,7 @@ ProfileUserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
       status: snapshot.data['status'] ?? '',
       username: snapshot.data['userName'] ?? '',
       image: snapshot.data['userImage'] ?? '',
+      uid: snapshot.data['userUID'] ?? '',
     );
   }
 
@@ -46,7 +47,8 @@ ProfileUserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
 class ProfileUserData {
   final String email;
   final String status;
+  final String uid;
   final String username;
   final String image;
-  ProfileUserData({this.status, this.username, this.email, this.image});
+  ProfileUserData({this.status, this.username, this.uid,this.email, this.image});
 }

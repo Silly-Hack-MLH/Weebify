@@ -3,26 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:login_app/services/usermanagement.dart';
 import 'package:provider/provider.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+class MyHomePage extends StatelessWidget {
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<FirebaseUser>(context);
     return Scaffold(
       body: StreamProvider.value(
-          value: UserManagement().userData(user), child: sa()),
+          value: UserManagement().userData(user), child: Sa()),
     );
   }
 }
 
-class sa extends StatelessWidget {
-  const sa({
+class Sa extends StatelessWidget {
+  const Sa({
     Key key,
   }) : super(key: key);
 

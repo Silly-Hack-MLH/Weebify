@@ -4,8 +4,8 @@ import 'package:audioplayers/audio_cache.dart';
 // import 'package:awesome_dialog/awesome_dialog.dart';
 
 class Stickers extends StatefulWidget {
-  String name;
-  int num;
+  final String name;
+  final int num;
   Stickers(this.name, this.num);
   @override
   _StickersState createState() => _StickersState();
