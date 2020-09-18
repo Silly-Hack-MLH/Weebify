@@ -1,8 +1,9 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:login_app/pages/chatscreen.dart';
-import 'package:login_app/pages/login.page.dart';
+// import 'package:login_app/pages/chatscreen.dart';
+import 'package:login_app/pages/senderchatscreen.dart';
+// import 'package:login_app/pages/login.page.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'AnticSlab'),
-        home: ChatScreen(),
+        home: SChatscreen(),
         debugShowCheckedModeBanner: false,
       ),
     );

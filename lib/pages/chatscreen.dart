@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_app/services/stickers.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key key}) : super(key: key);
@@ -8,6 +9,18 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  List stickers = [
+    Stickers('assets/1.png', 1),
+    Stickers('assets/2.png', 2),
+    Stickers('assets/3.png', 3),
+    Stickers('assets/4.png', 4),
+    Stickers('assets/5.png', 5),
+    Stickers('assets/6.png', 6),
+    Stickers('assets/7.png', 7),
+    Stickers('assets/8.png', 8),
+    Stickers('assets/9.png', 9),
+  ];
+
   TextEditingController _textfiledcontroller = TextEditingController();
   bool isWriting = false;
   setWritingTo(bool val) {
@@ -59,28 +72,6 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  // Widget layout() {
-  //   return Container(
-  //       constraints: BoxConstraints(minWidth: 100, maxWidth: 200),
-  //       margin: EdgeInsets.only(top: 12),
-
-  //       decoration: BoxDecoration(
-  //           color: Colors.red,
-  //           borderRadius: BorderRadius.only(
-  //               topLeft: Radius.circular(20),
-  //               topRight: Radius.circular(00),
-  //               bottomLeft: Radius.circular(20),
-  //               bottomRight: Radius.circular(20))),
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(10.0),
-  //         child: Text(
-  //           'sdhb',
-  //           style: TextStyle(color: Colors.white, fontSize: 16),
-  //         ),
-  //       ),
-  //     );
-  // }
-
   Widget chatControls() {
     return Padding(
       padding: const EdgeInsets.all(4.0),
@@ -93,22 +84,38 @@ class _ChatScreenState extends State<ChatScreen> {
                   context: context,
                   builder: (BuildContext context) {
                     return Container(
-                          height: 200,
+                      height: 300,
                       child: Column(
                         children: [
-                          Text('Stickers'),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Stickers',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                GestureDetector(
+                                    child: Icon(Icons.close),
+                                    onTap: () => Navigator.pop(context))
+                              ],
+                            ),
+                          ),
                           Container(
-                            height: 180,
+                            height: 250,
                             child: GridView.count(
                               crossAxisCount: 3,
-                              padding: EdgeInsets.symmetric(horizontal: 4,vertical: 2),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 4, vertical: 2),
                               childAspectRatio: 1,
                               crossAxisSpacing: 2,
                               mainAxisSpacing: 2,
                               children: List.generate(
-                                  9,
+                                  stickers.length,
                                   (index) => Expanded(
-                                        child: Container(color: Colors.amber),
+                                        child: stickers[index],
                                       )),
                             ),
                           ),
