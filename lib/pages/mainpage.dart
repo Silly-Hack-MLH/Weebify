@@ -52,7 +52,7 @@ class _ChatListContainerState extends State<ChatListContainer> {
                   },
                 );
               }
-              // return CircularProgressIndicator();
+              return CircularProgressIndicator();
             }),
       ),
     );

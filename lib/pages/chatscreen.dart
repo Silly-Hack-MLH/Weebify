@@ -12,6 +12,7 @@ import 'package:login_app/provider/imageprovider.dart';
 import 'package:login_app/services/messageupload.dart';
 import 'package:login_app/services/pickimage.dart';
 import 'package:login_app/services/stickers.dart';
+import 'package:login_app/services/translator.dart';
 import 'package:login_app/services/usermanagement.dart';
 import 'package:provider/provider.dart';
 
@@ -73,16 +74,16 @@ class _ChatScreen1State extends State<ChatScreen1> {
   //   Emote('Stop!'),
   //   Emote('Good Night'),
   // ];
-List<String> em = [
+  List<String> em = [
     "Ok Boomer!",
-        "Noob!",
-        "HaHaHa",
-        "Come On!"
+    "Noob!",
+    "HaHaHa",
+    "Come On!"
         "Help!",
-        "Nice!",
-        "Hurray!",
-        "Stop!",
-        "Good Night",
+    "Nice!",
+    "Hurray!",
+    "Stop!",
+    "Good Night",
   ];
   TextEditingController _textfiledcontroller = TextEditingController();
   bool isWriting = false;
@@ -243,19 +244,34 @@ List<String> em = [
                     : setWritingTo(false);
               },
               decoration: InputDecoration(
-                  hintText: 'enter a message',
-                  hintStyle: TextStyle(color: Colors.black),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(60)),
-                    borderSide: BorderSide.none,
+                hintText: 'enter a message',
+                hintStyle: TextStyle(color: Colors.black),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(60)),
+                  borderSide: BorderSide.none,
+                ),
+                contentPadding: EdgeInsets.all(10),
+                filled: true,
+                fillColor: Colors.amber,
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Home(
+                            rid: widget.reciver.uid,
+                            sid: senderUserUId,
+                          );
+                        });
+                  },
+                  child: AnimatedPadding(
+                    duration: Duration(milliseconds: 300),
+                    padding:
+                        isWriting ? EdgeInsets.all(0) : EdgeInsets.all(5.0),
+                    child: Icon(Icons.translate),
                   ),
-                  contentPadding: EdgeInsets.all(10),
-                  filled: true,
-                  fillColor: Colors.amber,
-                  suffixIcon: GestureDetector(
-                    onTap: () {},
-                    child: Icon(Icons.face),
-                  )),
+                ),
+              ),
             ),
           ),
           isWriting
@@ -286,7 +302,10 @@ List<String> em = [
                                               child: Text(em[index]),
                                               onPressed: () {
                                                 // print(widget.txt);
-                                                MessageSend().sendMessage(senderUserUId, widget.reciver.uid, em[index]);
+                                                MessageSend().sendMessage(
+                                                    senderUserUId,
+                                                    widget.reciver.uid,
+                                                    em[index]);
                                               },
                                             )),
                                   ),
