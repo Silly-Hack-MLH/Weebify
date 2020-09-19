@@ -1,8 +1,8 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:login_app/pages/chatscreen.dart';
 import 'package:login_app/pages/login.page.dart';
+import 'package:login_app/provider/imageprovider.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
@@ -13,6 +13,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         // Make user stream available
+        ChangeNotifierProvider<IMageUploadProvider>.value(
+            value: IMageUploadProvider()),
         StreamProvider<FirebaseUser>.value(
             value: FirebaseAuth.instance.onAuthStateChanged),
       ],
@@ -25,4 +27,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

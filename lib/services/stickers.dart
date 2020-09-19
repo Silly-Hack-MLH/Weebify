@@ -1,12 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
+import 'package:login_app/services/messageupload.dart';
 // import 'package:awesome_dialog/awesome_dialog.dart';
 
 class Stickers extends StatefulWidget {
   final String name;
+  final String senderid;
+  final String reciverid;
   final int num;
-  Stickers(this.name, this.num);
+  Stickers({@required this.name, @required this.num, @required this.reciverid, @required this.senderid});
   @override
   _StickersState createState() => _StickersState();
 }
@@ -23,7 +26,7 @@ class _StickersState extends State<Stickers> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        Future.delayed(Duration(seconds: 3), () {
+        Future.delayed(Duration(seconds: 2), () {
           Navigator.of(context).pop(true);
         });
         return AlertDialog(
@@ -48,6 +51,7 @@ class _StickersState extends State<Stickers> {
       onPressed: () async {
         playsound(widget.num);
         showMyDialog();
+        MessageSend().sendSticker(widget.senderid, widget.reciverid, widget.num.toString());
       },
     );
   }

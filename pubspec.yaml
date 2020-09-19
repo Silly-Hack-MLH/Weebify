@@ -39,6 +39,9 @@ dependencies:
   provider: ^4.3.2+2
   audioplayers: ^0.16.1
   awesome_dialog: ^1.2.0
+  image: ^2.1.14
+  path_provider: ^1.6.16
+  cached_network_image: ^2.3.2+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
