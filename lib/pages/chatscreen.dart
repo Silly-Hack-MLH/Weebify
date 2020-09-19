@@ -25,6 +25,25 @@ class ChatScreen extends StatelessWidget {
   }
 }
 
+class Emote extends StatefulWidget {
+   String txt;
+  Emote(this.txt);
+  @override
+  _EmoteState createState() => _EmoteState();
+}
+
+class _EmoteState extends State<Emote> {
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      child: Text(widget.txt),
+      onPressed: () {
+        print(widget.txt);
+      },
+    );
+  }
+}
+
 class ChatScreen1 extends StatefulWidget {
   const ChatScreen1({Key key}) : super(key: key);
 
@@ -33,16 +52,18 @@ class ChatScreen1 extends StatefulWidget {
 }
 
 class _ChatScreen1State extends State<ChatScreen1> {
+  
   String reciveruid = 'Cr0Sa2xR5oQk2wJUqxicv6xuvI03';
-  List<String> em = [
-    "Ok Boomer!"
-        "Noob!"
-        "HaHaHa"
-        "Come On!"
-        "Help!"
-        "Nice!"
-        "Hurray!"
-        "Stop!"
+  List em = [
+    Emote('Ok Boomer'),
+    Emote('Noob!'),
+    Emote('HaHaHa'),
+    Emote('Come on!'),
+    Emote('Help!'),
+    Emote('Nice!'),
+    Emote('Hurray!'),
+    Emote('Stop!'),
+    Emote('Good Night'),
   ];
 
   TextEditingController _textfiledcontroller = TextEditingController();
@@ -111,7 +132,7 @@ class _ChatScreen1State extends State<ChatScreen1> {
           itemCount: snapshot.data.documents.length,
           itemBuilder: (BuildContext context, int index) {
             return messageBubble(
-                snapshot.data.documents[index], currentuser, context);
+                snapshot.data.documents[index], currentuser, context, index);
           },
         );
       },
@@ -221,34 +242,40 @@ class _ChatScreen1State extends State<ChatScreen1> {
           isWriting
               ? Container()
               : GestureDetector(
-                  onTap: () {
-                    print("hi");
-                    showModalBottomSheet<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            height: 200,
-                            child: GridView.count(
-                              crossAxisCount: 2,
-                              childAspectRatio: 5,
-                              children: List.generate(
-                                em.length,
-                                (index) => Center(
-                                  child: FlatButton(
-                                      onPressed: () {}, child: Text(em[index])),
-                                ),
-                              ),
-                            ),
-                          );
-                        });
-                  },
-                  child: AnimatedPadding(
-                    duration: Duration(milliseconds: 300),
-                    padding:
-                        isWriting ? EdgeInsets.all(0) : EdgeInsets.all(5.0),
-                    child: Icon(Icons.accessibility_new),
+        onTap: () {
+          print("hi");
+          showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  height: 200,
+                  child: Column(
+                    children: [
+                      Text('Stickers'),
+                      Container(
+                        height: 180,
+                        child: GridView.count(
+                          crossAxisCount: 3,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+                          childAspectRatio: 3,
+                          crossAxisSpacing: 2,
+                          mainAxisSpacing: 2,
+                          children:
+                              List.generate(em.length, (index) => em[index]),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                );
+              });
+        },
+        child: AnimatedPadding(
+          duration: Duration(milliseconds: 300),
+           padding: isWriting ? EdgeInsets.all(0) : EdgeInsets.all(5.0),
+          child: Icon(Icons.accessibility_new),
+        ),
+      ),
           isWriting
               ? Container()
               : GestureDetector(
@@ -284,7 +311,24 @@ class _ChatScreen1State extends State<ChatScreen1> {
   }
 }
 
-Widget messageBubble(DocumentSnapshot snapshot, uid, context) {
+showMyDialog(context, String name, int index) {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext context) {
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.of(context).pop(true);
+      });
+      return AlertDialog(
+        backgroundColor: Colors.transparent,
+        content: SingleChildScrollView(
+            child: Hero(tag: index.toString(), child: Image.asset(name))),
+      );
+    },
+  );
+}
+
+Widget messageBubble(DocumentSnapshot snapshot, uid, context, int index) {
   bool isMe = snapshot['senderId'] == uid;
   String message = snapshot['messageData'];
   print(snapshot['photoURL']);
@@ -329,10 +373,20 @@ Widget messageBubble(DocumentSnapshot snapshot, uid, context) {
                   ),
                 ],
                 if (snapshot['type'] == 'sticker') ...[
-                  Image.asset(
-                    'assets/${snapshot['messageData']}.png',
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    height: MediaQuery.of(context).size.width * 0.3,
+                  GestureDetector(
+                    onTap: () {
+                      playsound(snapshot['messageData']);
+                      showMyDialog(context,
+                          'assets/${snapshot['messageData']}.png', index);
+                    },
+                    child: Hero(
+                      tag: index.toString(),
+                      child: Image.asset(
+                        'assets/${snapshot['messageData']}.png',
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        height: MediaQuery.of(context).size.width * 0.3,
+                      ),
+                    ),
                   )
                 ],
               ],

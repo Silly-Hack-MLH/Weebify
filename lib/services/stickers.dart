@@ -14,7 +14,7 @@ class Stickers extends StatefulWidget {
   _StickersState createState() => _StickersState();
 }
 
-void playsound(int num) {
+void playsound( num) {
   final player = AudioCache();
   player.play("note$num.wav");
 }
