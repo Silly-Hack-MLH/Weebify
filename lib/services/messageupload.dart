@@ -30,6 +30,42 @@ class MessageSend {
       'timeStamp': FieldValue.serverTimestamp(),
       'type': 'text'
     });
+
+    addToContacts(senderId: senderuid, reciverId: reciveruid);
+  }
+
+  DocumentReference getcontactDocuments({String of, String forcontact}) =>
+      Firestore.instance
+          .collection('users')
+          .document(of)
+          .collection('contacts')
+          .document(forcontact);
+  addToContacts({String senderId, String reciverId}) async {
+    Timestamp currentTime = Timestamp.now();
+    await addTosenderscontact(
+        currentTime: currentTime, senderId: senderId, reciverId: reciverId);
+    await addTorecivercontact(
+        currentTime: currentTime, senderId: senderId, reciverId: reciverId);
+  }
+
+  Future<void> addTosenderscontact(
+      {String senderId, String reciverId, currentTime}) async {
+    DocumentSnapshot senderSnapshot =
+        await getcontactDocuments(of: senderId, forcontact: reciverId).get();
+    if (!senderSnapshot.exists) {
+      await getcontactDocuments(of: senderId, forcontact: reciverId)
+          .setData({'uid': reciverId, 'addedOn': currentTime});
+    }
+  }
+
+  Future<void> addTorecivercontact(
+      {String senderId, String reciverId, currentTime}) async {
+    DocumentSnapshot reciverDocument =
+        await getcontactDocuments(of: reciverId, forcontact: senderId).get();
+    if (!reciverDocument.exists) {
+      await getcontactDocuments(of: reciverId, forcontact: senderId)
+          .setData({'uid': senderId, 'addedOn': currentTime});
+    }
   }
 
   Future<String> uploadImageToStorage(File image) async {
@@ -106,4 +142,15 @@ class MessageSend {
       'type': 'image'
     });
   }
+
+  Stream<QuerySnapshot> fetchContacts({String userId}) => Firestore.instance
+      .collection('users')
+      .document(userId)
+      .collection('contacts')
+      .snapshots();
+  Stream<QuerySnapshot> fetchlastMessage({String senderId,String reciverid}) => Firestore.instance
+      .collection('message')
+      .document(senderId)
+      .collection(reciverid).orderBy('timeStamp')
+      .snapshots();
 }

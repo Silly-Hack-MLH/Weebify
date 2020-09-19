@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:login_app/model/user.dart';
+import 'package:login_app/pages/chatscreen.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -100,7 +102,11 @@ class _SearchScreenState extends State<SearchScreen> {
 
         return CustomTile(
           mini: false,
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (ct)=>ChatScreen(
+             reciver: searchedUser,
+            )));
+          },
           leading: CircleAvatar(
             backgroundImage: NetworkImage(searchedUser.profilePhoto),
             backgroundColor: Colors.grey,
@@ -225,40 +231,6 @@ class FirebaseRepository {
 
   Future<List<User>> fetchAllUsers(FirebaseUser user) =>
       _firebaseMethods.fetchAllUsers(user);
-}
-
-class User {
-  String uid;
-  String name;
-  String email;
-  String status;
-  String profilePhoto;
-
-  User({
-    this.uid,
-    this.name,
-    this.email,
-    this.status,
-    this.profilePhoto,
-  });
-
-  Map toMap(User user) {
-    var data = Map<String, dynamic>();
-    data['userUID'] = user.uid;
-    data['userName'] = user.name;
-    data['userEmail'] = user.email;
-    data["status"] = user.status;
-    data["userImage"] = user.profilePhoto;
-    return data;
-  }
-
-  User.fromMap(Map<String, dynamic> mapData) {
-    this.uid = mapData['userUID'];
-    this.name = mapData['userName'];
-    this.email = mapData['userEmail'];
-    this.status = mapData['status'];
-    this.profilePhoto = mapData['userImage'];
-  }
 }
 
 class FirebaseMethods {

@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:login_app/enum/viewstate.dart';
+import 'package:login_app/model/user.dart';
+// import 'package:login_app/pages/search.dart';
 import 'package:login_app/provider/imageprovider.dart';
 import 'package:login_app/services/messageupload.dart';
 import 'package:login_app/services/pickimage.dart';
@@ -14,58 +15,75 @@ import 'package:login_app/services/stickers.dart';
 import 'package:login_app/services/usermanagement.dart';
 import 'package:provider/provider.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
+  ChatScreen({this.reciver});
+  final User reciver;
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<FirebaseUser>(context);
     return Scaffold(
       body: StreamProvider.value(
-          value: UserManagement().userData(user), child: ChatScreen1()),
+          value: UserManagement().userData(user),
+          child: ChatScreen1(reciver: widget.reciver)),
     );
   }
 }
 
-class Emote extends StatefulWidget {
-   String txt;
-  Emote(this.txt);
-  @override
-  _EmoteState createState() => _EmoteState();
-}
+// class Emote extends StatefulWidget {
+//   String txt;
+//   Emote(this.txt);
+//   @override
+//   _EmoteState createState() => _EmoteState();
+// }
 
-class _EmoteState extends State<Emote> {
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      child: Text(widget.txt),
-      onPressed: () {
-        print(widget.txt);
-      },
-    );
-  }
-}
+// class _EmoteState extends State<Emote> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return FlatButton(
+//       child: Text(widget.txt),
+//       onPressed: () {
+//         print(widget.txt);
+//         // MessageSend().sendMessage(senderuid, reciveruid, widget.txt);
+//       },
+//     );
+//   }
+// }
 
 class ChatScreen1 extends StatefulWidget {
-  const ChatScreen1({Key key}) : super(key: key);
-
+  const ChatScreen1({Key key, @required this.reciver}) : super(key: key);
+  final User reciver;
   @override
   _ChatScreen1State createState() => _ChatScreen1State();
 }
 
 class _ChatScreen1State extends State<ChatScreen1> {
-  
-  String reciveruid = 'Cr0Sa2xR5oQk2wJUqxicv6xuvI03';
-  List em = [
-    Emote('Ok Boomer'),
-    Emote('Noob!'),
-    Emote('HaHaHa'),
-    Emote('Come on!'),
-    Emote('Help!'),
-    Emote('Nice!'),
-    Emote('Hurray!'),
-    Emote('Stop!'),
-    Emote('Good Night'),
+  // List em = [
+  //   Emote('Ok Boomer'),
+  //   Emote('Noob!'),
+  //   Emote('HaHaHa'),
+  //   Emote('Come on!'),
+  //   Emote('Help!'),
+  //   Emote('Nice!'),
+  //   Emote('Hurray!'),
+  //   Emote('Stop!'),
+  //   Emote('Good Night'),
+  // ];
+List<String> em = [
+    "Ok Boomer!",
+        "Noob!",
+        "HaHaHa",
+        "Come On!"
+        "Help!",
+        "Nice!",
+        "Hurray!",
+        "Stop!",
+        "Good Night",
   ];
-
   TextEditingController _textfiledcontroller = TextEditingController();
   bool isWriting = false;
   setWritingTo(bool val) {
@@ -87,9 +105,10 @@ class _ChatScreen1State extends State<ChatScreen1> {
           children: [
             CircleAvatar(
               backgroundImage: NetworkImage(
-                  'https://firebasestorage.googleapis.com/v0/b/weebify-f26e5.appspot.com/o/1600499306936?alt=media&token=1c633ea3-ac53-432a-8ea2-cf3107d49860'),
+                widget.reciver.profilePhoto,
+              ),
             ),
-            Text('ascjvd'),
+            Text(widget.reciver.name),
           ],
         ),
       ),
@@ -120,7 +139,7 @@ class _ChatScreen1State extends State<ChatScreen1> {
       stream: Firestore.instance
           .collection('message')
           .document(currentuser)
-          .collection(reciveruid)
+          .collection(widget.reciver.uid)
           .orderBy('timeStamp', descending: true)
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -143,8 +162,8 @@ class _ChatScreen1State extends State<ChatScreen1> {
       IMageUploadProvider iMageUploadProvider) async {
     File selectedImage = await Pmage.pickimage(source);
 
-    MessageSend()
-        .sendImage(selectedImage, suid, reciveruid, iMageUploadProvider);
+    MessageSend().sendImage(
+        selectedImage, suid, widget.reciver.uid, iMageUploadProvider);
   }
 
   Widget chatControls() {
@@ -197,7 +216,7 @@ class _ChatScreen1State extends State<ChatScreen1> {
                                           child: Stickers(
                                         name: 'assets/${index + 1}.png',
                                         num: index + 1,
-                                        reciverid: reciveruid,
+                                        reciverid: widget.reciver.uid,
                                         senderid: senderUserUId,
                                       ))),
                             ),
@@ -242,40 +261,48 @@ class _ChatScreen1State extends State<ChatScreen1> {
           isWriting
               ? Container()
               : GestureDetector(
-        onTap: () {
-          print("hi");
-          showModalBottomSheet<void>(
-              context: context,
-              builder: (BuildContext context) {
-                return Container(
-                  height: 200,
-                  child: Column(
-                    children: [
-                      Text('Stickers'),
-                      Container(
-                        height: 180,
-                        child: GridView.count(
-                          crossAxisCount: 3,
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 1, vertical: 1),
-                          childAspectRatio: 3,
-                          crossAxisSpacing: 2,
-                          mainAxisSpacing: 2,
-                          children:
-                              List.generate(em.length, (index) => em[index]),
-                        ),
-                      ),
-                    ],
+                  onTap: () {
+                    print("hi");
+                    showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            height: 200,
+                            child: Column(
+                              children: [
+                                Text('Stickers'),
+                                Container(
+                                  height: 180,
+                                  child: GridView.count(
+                                    crossAxisCount: 3,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 1, vertical: 1),
+                                    childAspectRatio: 3,
+                                    crossAxisSpacing: 2,
+                                    mainAxisSpacing: 2,
+                                    children: List.generate(
+                                        em.length,
+                                        (index) => FlatButton(
+                                              child: Text(em[index]),
+                                              onPressed: () {
+                                                // print(widget.txt);
+                                                MessageSend().sendMessage(senderUserUId, widget.reciver.uid, em[index]);
+                                              },
+                                            )),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        });
+                  },
+                  child: AnimatedPadding(
+                    duration: Duration(milliseconds: 300),
+                    padding:
+                        isWriting ? EdgeInsets.all(0) : EdgeInsets.all(5.0),
+                    child: Icon(Icons.accessibility_new),
                   ),
-                );
-              });
-        },
-        child: AnimatedPadding(
-          duration: Duration(milliseconds: 300),
-           padding: isWriting ? EdgeInsets.all(0) : EdgeInsets.all(5.0),
-          child: Icon(Icons.accessibility_new),
-        ),
-      ),
+                ),
           isWriting
               ? Container()
               : GestureDetector(
@@ -296,8 +323,8 @@ class _ChatScreen1State extends State<ChatScreen1> {
                   padding: isWriting ? EdgeInsets.all(5) : EdgeInsets.all(0),
                   child: GestureDetector(
                     onTap: () {
-                      MessageSend().sendMessage(
-                          senderUserUId, reciveruid, _textfiledcontroller.text);
+                      MessageSend().sendMessage(senderUserUId,
+                          widget.reciver.uid, _textfiledcontroller.text);
                     },
                     child: Container(
                       child: Icon(Icons.send),
