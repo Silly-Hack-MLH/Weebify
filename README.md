@@ -1,16 +1,13 @@
-# login_app
+# Weebify (A fun chat app)
 
-A new Flutter project.
+<img src="https://github.com/Silly-Hack-MLH/UI-screenshots/blob/master/login.jpeg" width="30%"><img src="https://github.com/Silly-Hack-MLH/UI-screenshots/blob/master/chat.jpeg" width="30%"> <img src="https://github.com/Silly-Hack-MLH/UI-screenshots/blob/master/contact%20search.jpeg" width="30%">   
 
-## Getting Started
+The idea originates from having to switch between apps or tabs in order to send memes and  translations in the middle of a conversation with our buddies. So we have came up with a flutter chat app which inculcates the traditional chat app but with some extra spice  which comes from the mischievous translator, trending memes and stickers all in one place to keep the crazy conversation going silky smooth.
 
-This project is a starting point for a Flutter application.
+This flutter app with a Cloud Firestore backend provides a default chat screen with options to upload memes on the fly with the “Meme Generator” which is included in the app. We have added a custom built “Mischievous Translator” using NLP to provide funky and silly translations of the messages in multiple languages. 
 
-A few resources to get you started if this is your first Flutter project:
+<img src="https://github.com/Silly-Hack-MLH/UI-screenshots/blob/master/sticker.jpeg" width="30%"> <img src="https://github.com/Silly-Hack-MLH/UI-screenshots/blob/master/meme.jpeg" width="30%"> <img src="https://github.com/Silly-Hack-MLH/UI-screenshots/blob/master/translator.jpeg" width="30%">
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
