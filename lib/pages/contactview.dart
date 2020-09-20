@@ -56,7 +56,8 @@ class ViwLayout extends StatelessWidget {
                 builder: (ct) => ChatScreen(
                       reciver: contact,
                     )));
-      },      title: Text(
+      },
+      title: Text(
         contact.name,
         style:
             TextStyle(color: Colors.black, fontFamily: "Arial", fontSize: 19),
@@ -73,11 +74,16 @@ class ViwLayout extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Container(
-              height: 30, width: 30,
-              decoration: BoxDecoration(shape: BoxShape.circle),
+              height: 50, width: 50,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(50))),
               // backgroundColor: Colors.grey,
-              child: CachedNetworkImage(
-                imageUrl: contact.profilePhoto,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+                child: CachedNetworkImage(
+                  imageUrl: contact.profilePhoto,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ],

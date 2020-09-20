@@ -134,6 +134,7 @@ class _HomeState extends State<Home> {
 
   final lang = TextEditingController();
 
+
   void trans(String res) {
     translator
         .translate(res, to: languages[lang.text.toLowerCase()])
@@ -190,10 +191,9 @@ class _HomeState extends State<Home> {
                   setState(() {
                     res = decodedData['result'];
                   });
-                  print(res);
                   trans(res);
                 },
-                child: Text('Ok Boomer!', style: TextStyle(fontSize: 17)),
+                child: Text('Translate!', style: TextStyle(fontSize: 17)),
               ),
               SizedBox(
                 height: 40,
@@ -221,3 +221,13 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+

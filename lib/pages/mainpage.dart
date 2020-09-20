@@ -25,10 +25,10 @@ class _ChatListContainerState extends State<ChatListContainer> {
       appBar: AppBar(
         title: Text('Chat App'),
         actions: [
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (ctx) => SS()))),
+          // IconButton(
+          //     icon: Icon(Icons.add),
+          //     onPressed: () => Navigator.push(
+          //         context, MaterialPageRoute(builder: (ctx) => SS()))),
           IconButton(
               icon: Icon(Icons.search),
               onPressed: () => Navigator.push(

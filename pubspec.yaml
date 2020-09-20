@@ -43,6 +43,9 @@ dependencies:
   path_provider: ^1.6.16
   cached_network_image: ^2.3.2+1
   translator: ^0.1.5
+  fluttertoast: ^7.1.1
+  gallery_saver: ^2.0.1
+  permission_handler: ^4.2.0+hotfix.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
