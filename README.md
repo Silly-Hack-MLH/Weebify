@@ -1,6 +1,6 @@
 # Weebify (A fun chat app)
 
-<img src="https://github.com/Silly-Hack-MLH/UI-screenshots/blob/master/login.jpeg" width="30%"><img src="https://github.com/Silly-Hack-MLH/UI-screenshots/blob/master/chat.jpeg" width="30%"> <img src="https://github.com/Silly-Hack-MLH/UI-screenshots/blob/master/contact%20search.jpeg" width="30%">   
+<img src="https://github.com/Silly-Hack-MLH/UI-screenshots/blob/master/login.jpeg" width="30%">  <img src="https://github.com/Silly-Hack-MLH/UI-screenshots/blob/master/chat.jpeg" width="30%"> <img src="https://github.com/Silly-Hack-MLH/UI-screenshots/blob/master/contact%20search.jpeg" width="30%">   
 
 The idea originates from having to switch between apps or tabs in order to send memes and  translations in the middle of a conversation with our buddies. So we have came up with a flutter chat app which inculcates the traditional chat app but with some extra spice  which comes from the mischievous translator, trending memes and stickers all in one place to keep the crazy conversation going silky smooth.
 
