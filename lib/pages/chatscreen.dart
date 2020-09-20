@@ -425,6 +425,9 @@ class _ChatScreen1State extends State<ChatScreen1> {
                       MessageSend().sendMessage(senderUserUId,
                           widget.reciver.uid, _textfiledcontroller.text);
                       _textfiledcontroller.clear();
+                      setState(() {
+                        isWriting=false;
+                      });
                     },
                     child: Container(
                       child: Icon(Icons.send),

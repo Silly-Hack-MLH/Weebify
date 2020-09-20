@@ -223,8 +223,10 @@ class _Signin2State extends State<Signin2> {
                     padding: const EdgeInsets.all(20.0),
                     child: Text(
                       'Add Profile',
-                      style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 26,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                   Form(
@@ -316,7 +318,7 @@ class _Signin2State extends State<Signin2> {
                                 url = downurl.toString();
                               });
                               await UserManagement().storeNewUser(
-                                  loggeduser, context, username,  url,status);
+                                  loggeduser, context, username, url, status);
                             },
                           ),
                         ],

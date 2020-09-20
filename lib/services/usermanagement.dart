@@ -3,9 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:login_app/pages/home.dart';
+import 'package:login_app/pages/login.page.dart';
 
 class UserManagement {
-final CollectionReference datacollection =
+  final CollectionReference datacollection =
       Firestore.instance.collection('users');
 
   storeNewUser(var user, context, String username, String img, String status) {
@@ -19,13 +20,13 @@ final CollectionReference datacollection =
     }).then((value) {
       Navigator.of(context).pop();
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
+          context, MaterialPageRoute(builder: (ctx) => LoginPage()));
     }).catchError((e) {
       print(e);
     });
   }
 
-ProfileUserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+  ProfileUserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return ProfileUserData(
       email: snapshot.data['userEmail'] ?? '',
       status: snapshot.data['status'] ?? '',
@@ -34,7 +35,6 @@ ProfileUserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
       uid: snapshot.data['userUID'] ?? '',
     );
   }
-
 
   Stream<ProfileUserData> userData(FirebaseUser user) {
     return datacollection
@@ -50,5 +50,6 @@ class ProfileUserData {
   final String uid;
   final String username;
   final String image;
-  ProfileUserData({this.status, this.username, this.uid,this.email, this.image});
+  ProfileUserData(
+      {this.status, this.username, this.uid, this.email, this.image});
 }

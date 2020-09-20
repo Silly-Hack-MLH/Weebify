@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/model/contact.dart';
 import 'package:login_app/pages/creategroup.dart';
+import 'package:login_app/pages/quietbox.dart';
 import 'package:login_app/pages/search.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,7 +44,7 @@ class _ChatListContainerState extends State<ChatListContainer> {
                 var doclist = snapshot.data.documents;
                 if (doclist.isEmpty) {
                   return Container(
-                    child: Text("No Contacts"),
+                    child: QuietBox(),
                   );
                 }
                 return ListView.builder(
