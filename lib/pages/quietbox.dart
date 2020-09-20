@@ -19,6 +19,7 @@ class QuietBox extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
+                  color: Colors.white,
                   fontSize: 30,
                 ),
               ),
@@ -27,6 +28,8 @@ class QuietBox extends StatelessWidget {
                 "Search for your friends and family to start calling or chatting with them",
                 textAlign: TextAlign.center,
                 style: TextStyle(
+                  color: Colors.white,
+
                   letterSpacing: 1.2,
                   fontWeight: FontWeight.normal,
                   fontSize: 18,
