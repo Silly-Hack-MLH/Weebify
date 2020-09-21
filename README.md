@@ -10,7 +10,7 @@ This flutter app with a Cloud Firestore backend provides a default chat screen w
 
 ### The API for the Mischievous translator is hosted in heroku.
 <p>here is the link to the API https://sillytranslator.herokuapp.com/</p>
-Try this example : https://sillytranslator.herokuapp.com/translate?text=You%20look%20beautiful%20tall </p>
+Try this example : https://sillytranslator.herokuapp.com/translate?text=You%20look%20beautiful </p>
 
 
 
